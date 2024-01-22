@@ -1,15 +1,15 @@
 /*
- * type.h
- *
- *  Created on: Jan 9, 2024
- *  Author: phamtien758
+ * File: type.h
+ * Author: phamtien758
+ * 
  */
+
 #ifndef TYPE_H
 #define TYPE_H
 
 #include <stdint.h>
 
-#define _R    volatile
+#define _R    volatile const
 #define _W    volatile
 #define _RW   volatile
 
@@ -24,10 +24,5 @@ typedef enum
     RET_NOT_OK = 0,
     RET_OK     = 1
 }ReturnType; 
-
-/*
- * Compiler dependent.
- * Check these data types below and change for your compiler.
- */
 
 #endif /* TYPE_H */

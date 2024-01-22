@@ -17,35 +17,148 @@
  */
 typedef enum
 {
-    IRQ_NUM_EXTI16  = 1,
-    IRQ_NUM_EXTI21  = 2,
-    IRQ_NUM_EXTI22  = 3,
-    IRQ_NUM_EXTI0   = 6,
-    IRQ_NUM_EXTI1   = 7,
-    IRQ_NUM_EXTI2   = 8,
-    IRQ_NUM_EXTI3   = 9,
-    IRQ_NUM_EXTI4   = 10,
-    IRQ_NUM_EXTI9_5 = 23,
-    IRQ_NUM_EXTI17  = 41,
-    IRQ_NUM_EXTI18  = 42
+    IRQ_NUM_WWDG               = 0,
+    IRQ_NUM_EXTI16             = 1,
+    IRQ_NUM_EXTI21             = 2,
+    IRQ_NUM_EXTI22             = 3,
+    IRQ_NUM_FLASH              = 4,
+    IRQ_NUM_RCC                = 5,
+    IRQ_NUM_EXTI0              = 6,
+    IRQ_NUM_EXTI1              = 7,
+    IRQ_NUM_EXTI2              = 8,
+    IRQ_NUM_EXTI3              = 9,
+    IRQ_NUM_EXTI4              = 10,
+    IRQ_NUM_DMA1_0             = 11,
+    IRQ_NUM_DMA1_1             = 12,
+    IRQ_NUM_DMA1_2             = 13,
+    IRQ_NUM_DMA1_3             = 14,
+    IRQ_NUM_DMA1_4             = 15,
+    IRQ_NUM_DMA1_5             = 16,
+    IRQ_NUM_DMA1_6             = 17,
+    IRQ_NUM_ADC                = 18,
+    IRQ_NUM_EXTI9_5            = 23,
+    IRQ_NUM_TIM1_BRK_TIM9      = 24,
+    IRQ_NUM_TIM1_UP_TIM10      = 25,
+    IRQ_NUM_TIM1_TRG_COM_TIM11 = 26,
+    IRQ_NUM_TIM1_CC            = 27,
+    IRQ_NUM_TIM2               = 28,
+    IRQ_NUM_TIM3               = 29,
+    IRQ_NUM_TIM4               = 30,
+    IRQ_NUM_I2C1_EV            = 31,
+    IRQ_NUM_I2C1_ER            = 32,
+    IRQ_NUM_I2C2_EV            = 33,
+    IRQ_NUM_I2C2_ER            = 34,
+    IRQ_NUM_SPI1               = 35,
+    IRQ_NUM_SPI2               = 36,
+    IRQ_NUM_USART1             = 37,
+    IRQ_NUM_USART2             = 38,
+    IRQ_NUM_EXTI15_10          = 40,
+    IRQ_NUM_EXTI17             = 41,
+    IRQ_NUM_EXTI18             = 42,
+    IRQ_NUM_DMA1_7             = 47,
+    IRQ_NUM_SDIO               = 49,
+    IRQ_NUM_TIM5               = 50,
+    IRQ_NUM_SPI3               = 51,
+    IRQ_NUM_DMA2_0             = 56,
+    IRQ_NUM_DMA2_1             = 57,
+    IRQ_NUM_DMA2_2             = 58,
+    IRQ_NUM_DMA2_3             = 59,
+    IRQ_NUM_DMA2_4             = 60,
+    IRQ_NUM_OTG_FS             = 67,
+    IRQ_NUM_DMA2_5             = 68,
+    IRQ_NUM_DMA2_6             = 69,
+    IRQ_NUM_DMA2_7             = 70,
+    IRQ_NUM_USART6             = 71,
+    IRQ_NUM_I2C3_EV            = 72,
+    IRQ_NUM_I2C3_ER            = 73,
+    IRQ_NUM_FPU                = 81,
+    IRQ_NUM_SPI4               = 84
 }Irq_Number;
+
+/*
+ * @Irq_Pri
+ */
+typedef enum
+{
+    IRQ_PRI_0  = 0,
+    IRQ_PRI_1  = 1,
+    IRQ_PRI_2  = 2,
+    IRQ_PRI_3  = 3,
+    IRQ_PRI_4  = 4,
+    IRQ_PRI_5  = 5,
+    IRQ_PRI_6  = 6,
+    IRQ_PRI_7  = 7,
+    IRQ_PRI_8  = 8,
+    IRQ_PRI_9  = 9,
+    IRQ_PRI_10 = 10,
+    IRQ_PRI_11 = 11,
+    IRQ_PRI_12 = 12,
+    IRQ_PRI_13 = 13,
+    IRQ_PRI_14 = 14,
+    IRQ_PRI_15 = 15
+}Irq_Pri;
 
 /*
  * Definition of NVIC peripheral base address
  */
-#define NVIC_ISER0    ((volatile uint32_t*)0xE000E100)
-#define NVIC_ISER1    ((volatile uint32_t*)0xE000E104)
-#define NVIC_ISER2    ((volatile uint32_t*)0xE000E108)
-#define NVIC_ISER3    ((volatile uint32_t*)0xE000E10C)
+typedef struct
+{
+    _RW uint32_t ISER[8U];
+        uint32_t RESERVED0[24U];
+    _RW uint32_t ICER[8U];
+        uint32_t RESERVED0[24U];
+    _RW uint32_t ISPR[8U];
+        uint32_t RESERVED0[24U];
+    _RW uint32_t ICPR[8U];
+        uint32_t RESERVED0[24U];
+    _RW uint32_t IABR[8U];
+        uint32_t RESERVED0[56U];
+    _RW uint32_t IPR[60U];
+        uint32_t RESERVED0[643U];
+    _W  uint32_t STIR;
+}Nvic_RegDef;
 
-#define NVIC_ICER0    ((volatile uint32_t*)0XE000E180)
-#define NVIC_ICER1    ((volatile uint32_t*)0XE000E184)
-#define NVIC_ICER2    ((volatile uint32_t*)0XE000E188)
-#define NVIC_ICER3    ((volatile uint32_t*)0XE000E18C)
+#define NVIC_BASE    ((uint32_t*)0xE000E100)
+#define NVIC         ((Nvic_RegDef*)NVIC_BASE)
+#define NVIC_IPR_LOW_BIT_UNUSED      4U
 
-#define NVIC_IPR      ((volatile uint32_t*)0xE000E400)
+#define NVIC_ISER_REG_WIDTH          32U
+#define NVIC_ISER_BIT_PER_IRQ        1U
+#define NVIC_ISER_FIRST_IRQ_MASK     ((uint32_t)0x1)
+#define NVIC_ISER_IRQ_MASK(Index)    (NVIC_ISER_FIRST_IRQ_MASK<< \
+                                      ((Index) * NVIC_ISER_BIT_PER_IRQ))
 
-#define NVIC_IPR_LOW_BIT_UNUSED    4U
+#define NVIC_ICER_REG_WIDTH          32U
+#define NVIC_ICER_BIT_PER_IRQ        1U
+#define NVIC_ICER_FIRST_IRQ_MASK     ((uint32_t)0x1)
+#define NVIC_ICER_IRQ_MASK(Index)    (NVIC_ICER_FIRST_IRQ_MASK<< \
+                                      ((Index) * NVIC_ICER_BIT_PER_IRQ))
+
+#define NVIC_ISPR_REG_WIDTH          32U
+#define NVIC_ISPR_BIT_PER_IRQ        1U
+#define NVIC_ISPR_FIRST_IRQ_MASK     ((uint32_t)0x1)
+#define NVIC_ISPR_IRQ_MASK(Index)    (NVIC_ISPR_FIRST_IRQ_MASK<< \
+                                      ((Index) * NVIC_ISPR_BIT_PER_IRQ))
+
+#define NVIC_ICPR_REG_WIDTH          32U
+#define NVIC_ICPR_BIT_PER_IRQ        1U
+#define NVIC_ICPR_FIRST_IRQ_MASK     ((uint32_t)0x1)
+#define NVIC_ICPR_IRQ_MASK(Index)    (NVIC_ICPR_FIRST_IRQ_MASK<< \
+                                      ((Index) * NVIC_ICPR_BIT_PER_IRQ))
+
+#define NVIC_IABR_REG_WIDTH          32U
+#define NVIC_IABR_BIT_PER_IRQ        1U
+#define NVIC_IABR_FIRST_IRQ_MASK     ((uint32_t)0x1)
+#define NVIC_IABR_IRQ_MASK(Index)    (NVIC_IABR_FIRST_IRQ_MASK<< \
+                                      ((Index) * NVIC_IABR_BIT_PER_IRQ))
+
+#define NVIC_IPR_REG_WIDTH           32U
+#define NVIC_IPR_BIT_PER_IRQ         8U
+#define NVIC_IPR_FIRST_IRQ_MASK      ((uint32_t)0xFF)
+#define NVIC_IPR_IRQ_POS(Index)      (NVIC_IPR_LOW_BIT_UNUSED + \
+                                      (Index) * NVIC_IPR_BIT_PER_IRQ)
+#define NVIC_IPR_IRQ_MASK(Index)     (NVIC_IPR_FIRST_IRQ_MASK << \
+                                      NVIC_IPR_IRQ_POS(Index))
 
 /*
  * Definition of GPIO peripheral base address
@@ -251,25 +364,25 @@ typedef struct
     _RW uint32_t CIR;
     _RW uint32_t AHB1RSTR;
     _RW uint32_t AHB2RSTR;
-        uint32_t Reserved1[2];
+        uint32_t Reserved1[2U];
     _RW uint32_t APB1RSTR;
     _RW uint32_t APB2RSTR;
-        uint32_t Reserved2[2];
+        uint32_t Reserved2[2U];
     _RW uint32_t AHB1ENR;
     _RW uint32_t AHB2ENR;
-        uint32_t Reserved3[2];
+        uint32_t Reserved3[2U];
     _RW uint32_t APB1ENR;
     _RW uint32_t APB2ENR;
-        uint32_t Reserved4[2];
+        uint32_t Reserved4[2U];
     _RW uint32_t AHB1LPENR;
     _RW uint32_t AHB2LPENR;
-        uint32_t Reserved5[2];
+        uint32_t Reserved5[2U];
     _RW uint32_t APB1LPENR;
     _RW uint32_t APB2LPENR;
-        uint32_t Reserved6[2];
+        uint32_t Reserved6[2U];
     _RW uint32_t BDCR;
     _RW uint32_t CSR;
-        uint32_t Reserved7[2];
+        uint32_t Reserved7[2U];
     _RW uint32_t SSCGR;
     _RW uint32_t PLLI2SCFGR;
         uint32_t Reserved8;
@@ -388,8 +501,8 @@ typedef struct
 {
     _RW uint32_t MEMRMP;
     _RW uint32_t PMC;
-    _RW uint32_t EXTICR[4];
-    _RW uint32_t Reserved[2];
+    _RW uint32_t EXTICR[4U];
+    _RW uint32_t Reserved[2U];
     _RW uint32_t CMPCR;
 }Syscfg_RegDef;
 
