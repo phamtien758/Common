@@ -19,6 +19,8 @@
 #define TRUE    1
 #define FALSE   0
 
+#define NULL    ((void*)0)
+
 typedef enum
 {
     RET_NOT_OK = 0,

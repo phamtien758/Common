@@ -75,6 +75,8 @@ typedef enum
     IRQ_NUM_SPI4               = 84
 }Irq_Number;
 
+#define MAX_PEPRI_IRQ_NUM  85U    /*!< Max number of pepripheral irqs*/
+
 /*
  * @Irq_Pri
  */
