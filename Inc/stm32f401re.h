@@ -13,7 +13,7 @@
  *            Cortex-M4 Processor Peripheral
  *************************************************************/
 /*
- * Definition of IRQ number
+ * @brief Definition of IRQ number
  */
 typedef enum
 {
@@ -78,7 +78,7 @@ typedef enum
 #define MAX_PEPRI_IRQ_NUM  85U    /*!< Max number of pepripheral irqs*/
 
 /*
- * @Irq_Pri
+ * @name Irq_Pri
  */
 typedef enum
 {
