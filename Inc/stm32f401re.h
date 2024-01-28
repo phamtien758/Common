@@ -108,15 +108,15 @@ typedef struct
     _RW uint32_t ISER[8U];
         uint32_t RESERVED0[24U];
     _RW uint32_t ICER[8U];
-        uint32_t RESERVED0[24U];
+        uint32_t RESERVED1[24U];
     _RW uint32_t ISPR[8U];
-        uint32_t RESERVED0[24U];
+        uint32_t RESERVED2[24U];
     _RW uint32_t ICPR[8U];
-        uint32_t RESERVED0[24U];
+        uint32_t RESERVED3[24U];
     _RW uint32_t IABR[8U];
-        uint32_t RESERVED0[56U];
+        uint32_t RESERVED4[56U];
     _RW uint32_t IPR[60U];
-        uint32_t RESERVED0[643U];
+        uint32_t RESERVED5[643U];
     _W  uint32_t STIR;
 }Nvic_RegDef;
 
