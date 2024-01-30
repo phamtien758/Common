@@ -18,7 +18,7 @@ SRC_FILE = startup/startup_stm32f401retx.s
 SRC_FILE += ../GPIO/driver/gpio.c
 SRC_FILE += Src/syscalls.c
 SRC_FILE += Src/sysmem.c
-SRC_FILE += ../GPIO/test/main.c
+SRC_FILE += ../GPIO/test/$(TEST_FILE).c
 SRC_FILE += ../EXTI/driver/external_interrupt.c
 SRC_FILE += ../NVIC/driver/interrupt.c
 
@@ -27,7 +27,7 @@ OBJEC = $(OUTPUT_DIR)/startup_stm32f401retx.o
 OBJEC += $(OUTPUT_DIR)/gpio.o
 OBJEC += $(OUTPUT_DIR)/syscalls.o
 OBJEC += $(OUTPUT_DIR)/sysmem.o
-OBJEC += $(OUTPUT_DIR)/main.o
+OBJEC += $(OUTPUT_DIR)/$(TEST_FILE).o
 OBJEC += $(OUTPUT_DIR)/external_interrupt.o
 OBJEC += $(OUTPUT_DIR)/interrupt.o
 
@@ -52,7 +52,7 @@ $(OUTPUT_DIR)/external_interrupt.o: ../EXTI/driver/external_interrupt.c
 $(OUTPUT_DIR)/interrupt.o: ../NVIC/driver/interrupt.c
 	$(COMPILER) -c $(CFLAGS) $(INCLUDE) $^ -o $@
 
-$(OUTPUT_DIR)/main.o: ../GPIO/test/main.c
+$(OUTPUT_DIR)/$(TEST_FILE).o: ../GPIO/test/$(TEST_FILE).c
 	$(COMPILER) -c $(CFLAGS) $(INCLUDE) $^ -o $@
 
 # Load elf to target board

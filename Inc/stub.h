@@ -125,4 +125,7 @@ static inline void Rcc_GpioH_Reset(void)
 	p_Rcc_Base_st->AHB1RSTR &= ~RCC_AHB1RSTR_GPIOHRST_MASK;
 }
 
+#define SYSCFG_PORT_C    ((uint32_t)2)
+#define SYSCFG_EXTI13_ENABLE(value)    (SYSCFG->EXTICR[3U] |= (value<<4))
+
 #endif /* STUB_H_ */
