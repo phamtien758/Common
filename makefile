@@ -18,6 +18,7 @@ SRC_FILE = startup/startup_stm32f401retx.s
 SRC_FILE += ../GPIO/driver/gpio.c
 SRC_FILE += Src/syscalls.c
 SRC_FILE += Src/sysmem.c
+SRC_FILE += Src/stub.c
 SRC_FILE += ../GPIO/test/$(TEST_FILE).c
 SRC_FILE += ../EXTI/driver/external_interrupt.c
 SRC_FILE += ../NVIC/driver/interrupt.c
@@ -27,6 +28,7 @@ OBJEC = $(OUTPUT_DIR)/startup_stm32f401retx.o
 OBJEC += $(OUTPUT_DIR)/gpio.o
 OBJEC += $(OUTPUT_DIR)/syscalls.o
 OBJEC += $(OUTPUT_DIR)/sysmem.o
+OBJEC += $(OUTPUT_DIR)/stub.o
 OBJEC += $(OUTPUT_DIR)/$(TEST_FILE).o
 OBJEC += $(OUTPUT_DIR)/external_interrupt.o
 OBJEC += $(OUTPUT_DIR)/interrupt.o
@@ -44,6 +46,9 @@ $(OUTPUT_DIR)/syscalls.o: Src/syscalls.c
 	$(COMPILER) -c $(CFLAGS) $(INCLUDE) $^ -o $@
 
 $(OUTPUT_DIR)/sysmem.o: Src/sysmem.c
+	$(COMPILER) -c $(CFLAGS) $(INCLUDE) $^ -o $@
+
+$(OUTPUT_DIR)/stub.o: Src/stub.c
 	$(COMPILER) -c $(CFLAGS) $(INCLUDE) $^ -o $@
 
 $(OUTPUT_DIR)/external_interrupt.o: ../EXTI/driver/external_interrupt.c
@@ -70,3 +75,4 @@ make_dir:
 # Clean all output
 clean:
 	rm -rf $(OUTPUT_DIR)
+	rm -rf ozone_config.jdebug.user

@@ -510,4 +510,17 @@ typedef struct
 
 #define SYSCFG    ((Syscfg_RegDef*)SYSCFG_BASE)
 
+#define SYSCFG_MEMRMP_MEMMODE_POS    0U
+#define SYSCFG_MEMRMP_MEMMODE_MASK   ((uint32_t)0x3)
+
+#define SYSCFG_PMC_ADC1DC2_POS     0U
+#define SYSCFG_PMC_ADC1DC2_MASK    ((uint32_t)0x10000)
+
+#define SYSCFG_EXTICR_NUM_EXTI       4U
+#define SYSCFG_EXTICR_FIELD_WIDTH    4U
+#define SYSCFG_EXTICR_FIRST_EXTI_MASK    ((uint32_t)0xF)
+#define SYSCFG_EXTICR_EXTI_POS(Index)    ((Index)*SYSCFG_EXTICR_FIELD_WIDTH)
+#define SYSCFG_EXTICR_EXTI_MASK(Index)   (SYSCFG_EXTICR_FIRST_EXTI_MASK << \
+                                          SYSCFG_EXTICR_EXTI_POS(Index))
+
 #endif /* STM32F401RE_H */

@@ -125,7 +125,37 @@ static inline void Rcc_GpioH_Reset(void)
 	p_Rcc_Base_st->AHB1RSTR &= ~RCC_AHB1RSTR_GPIOHRST_MASK;
 }
 
-#define SYSCFG_PORT_C    ((uint32_t)2)
-#define SYSCFG_EXTI13_ENABLE(value)    (SYSCFG->EXTICR[3U] |= (value<<4))
+/*  */
+typedef enum
+{
+	SYS_EXTI0  = 0U,
+	SYS_EXTI1  = 1U,
+	SYS_EXTI2  = 2U,
+	SYS_EXTI3  = 3U,
+	SYS_EXTI4  = 4U,
+	SYS_EXTI5  = 5U,
+	SYS_EXTI6  = 6U,
+	SYS_EXTI7  = 7U,
+	SYS_EXTI8  = 8U,
+	SYS_EXTI9  = 9U,
+	SYS_EXTI10 = 10U,
+	SYS_EXTI11 = 11U,
+	SYS_EXTI12 = 12U,
+	SYS_EXTI13 = 13U,
+	SYS_EXTI14 = 14U,
+	SYS_EXTI15 = 15U
+}Sys_Exti;
+
+typedef enum
+{
+	SYS_PORTA = 0,
+	SYS_PORTB = 1,
+	SYS_PORTC = 2,
+	SYS_PORTD = 3,
+	SYS_PORTE = 4,
+	SYS_PORTH = 7
+}Sys_Port;
+
+void Sys_ExIntCfg(Sys_Exti ExtiNum_e, Sys_Port PortNum_e);
 
 #endif /* STUB_H_ */
