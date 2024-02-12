@@ -19,19 +19,20 @@
 /*** FUNCTIONS ****************************************************************/
 
 /**
-  * @brief   Function 1
-  * @note    
-  * @param   void
+  * @brief   Select port for Exti line interrupt
+  * @note    None
+  * @param   ExtiNum_e Exti line number
+  * @param   Port_e    Portx
   * @retval  None
   */       
-void Sys_ExIntCfg(Sys_Exti ExtiNum_e, Sys_Port PortNum_e)
+void Sys_ExIntCfg(Sys_Exti ExtiNum_e, Sys_Port Port_e)
 {
-    uint8_t RegIndex_u8;
-    uint8_t ExtiIndex_u8;
+    uint8 RegIndex_u8;
+    uint8 ExtiIndex_u8;
 
-    RegIndex_u8 = (uint8_t)ExtiNum_e / (uint8_t)SYSCFG_EXTICR_NUM_EXTI;
-    ExtiIndex_u8 = (uint8_t)ExtiNum_e % (uint8_t)SYSCFG_EXTICR_NUM_EXTI;
+    RegIndex_u8 = (uint8)ExtiNum_e / (uint8)SYSCFG_EXTICR_NUM_EXTI;
+    ExtiIndex_u8 = (uint8)ExtiNum_e % (uint8)SYSCFG_EXTICR_NUM_EXTI;
 
-    SYSCFG->EXTICR[RegIndex_u8] |= (PortNum_e << \
+    SYSCFG->EXTICR[RegIndex_u8] |= (Port_e << \
                                     SYSCFG_EXTICR_EXTI_POS(ExtiIndex_u8));
 }

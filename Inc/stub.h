@@ -1,8 +1,8 @@
-/*
- * File: stub.h
- * Author: phamtien758
- * 
- */
+/*******************************************************************************
+ * File  : stub.h       
+ * Author: phamtien758      
+ * Brief : Stub
+ ******************************************************************************/
 
 #ifndef STUB_H
 #define STUB_H
@@ -81,8 +81,11 @@
 /*
  * Syscfg clock disable macros
  */
+#define RCC_SYSCFG_CLK_DIS()   (RCC->APB2ENR &= ~RCC_APB2ENR_SYSCFGEN_MASK)
 
-
+/*
+ * Peripheral reset functions
+ */
 static inline void Rcc_GpioA_Reset(void)
 {
 	Rcc_RegDef *p_Rcc_Base_st = RCC;
@@ -125,7 +128,7 @@ static inline void Rcc_GpioH_Reset(void)
 	p_Rcc_Base_st->AHB1RSTR &= ~RCC_AHB1RSTR_GPIOHRST_MASK;
 }
 
-/*  */
+/* Stub of SYSCFG */
 typedef enum
 {
 	SYS_EXTI0  = 0U,
@@ -156,6 +159,6 @@ typedef enum
 	SYS_PORTH = 7
 }Sys_Port;
 
-void Sys_ExIntCfg(Sys_Exti ExtiNum_e, Sys_Port PortNum_e);
+void Sys_ExIntCfg(Sys_Exti ExtiNum_e, Sys_Port Port_e);
 
 #endif /* STUB_H_ */

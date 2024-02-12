@@ -1,27 +1,29 @@
 COMPILER := arm-none-eabi-gcc
 CPU := cortex-m4
 CFLAGS := -mthumb -Wall -O0 -mcpu=$(CPU)
-LINKER_SCRIPT_FILE = ./Linker_script/STM32F401RETX_FLASH.ld
+LINKER_SCRIPT_FILE = ./system/STM32F401RETX_FLASH.ld
 APPLICATION_FILE := ./App/*
 INCLUDE1 := ./Inc
 INCLUDE2 := ../GPIO/driver
 INCLUDE3 := ../EXTI/driver
 INCLUDE4 := ../NVIC/driver
-INCLUDE := -I$(INCLUDE1) -I$(INCLUDE2) -I$(INCLUDE3) -I$(INCLUDE4)
+INCLUDE5 := ../spi/driver
+INCLUDE := -I$(INCLUDE1) -I$(INCLUDE2) -I$(INCLUDE3) -I$(INCLUDE4) -I$(INCLUDE5)
 OUTPUT_DIR := output
 ELF_FILE := out.elf
 
 OZONE_DIR := D:/SEGGER/Ozone/Ozone.exe
 OZONE_CFG := ozone_config.jdebug
 
-SRC_FILE = startup/startup_stm32f401retx.s
+SRC_FILE = system/startup_stm32f401retx.s
 SRC_FILE += ../GPIO/driver/gpio.c
-SRC_FILE += Src/syscalls.c
-SRC_FILE += Src/sysmem.c
+SRC_FILE += system/syscalls.c
+SRC_FILE += system/sysmem.c
 SRC_FILE += Src/stub.c
-SRC_FILE += ../GPIO/test/$(TEST_FILE).c
+SRC_FILE += ../$(MODULE)/test/$(TEST_FILE).c
 SRC_FILE += ../EXTI/driver/external_interrupt.c
 SRC_FILE += ../NVIC/driver/interrupt.c
+SRC_FILE += ../SPI/driver/spi.c
 
 # Object files
 OBJEC = $(OUTPUT_DIR)/startup_stm32f401retx.o
@@ -32,20 +34,21 @@ OBJEC += $(OUTPUT_DIR)/stub.o
 OBJEC += $(OUTPUT_DIR)/$(TEST_FILE).o
 OBJEC += $(OUTPUT_DIR)/external_interrupt.o
 OBJEC += $(OUTPUT_DIR)/interrupt.o
+OBJEC += $(OUTPUT_DIR)/spi.o
 
 # Make object files
 mk_obj: make_dir $(OBJEC)
 
-$(OUTPUT_DIR)/startup_stm32f401retx.o: startup/startup_stm32f401retx.s
+$(OUTPUT_DIR)/startup_stm32f401retx.o: system/startup_stm32f401retx.s
 	$(COMPILER) -c $(CFLAGS) $(INCLUDE) $^ -o $@
 
 $(OUTPUT_DIR)/gpio.o: ../GPIO/driver/gpio.c
 	$(COMPILER) -c $(CFLAGS) $(INCLUDE) $^ -o $@
 
-$(OUTPUT_DIR)/syscalls.o: Src/syscalls.c
+$(OUTPUT_DIR)/syscalls.o: system/syscalls.c
 	$(COMPILER) -c $(CFLAGS) $(INCLUDE) $^ -o $@
 
-$(OUTPUT_DIR)/sysmem.o: Src/sysmem.c
+$(OUTPUT_DIR)/sysmem.o: system/sysmem.c
 	$(COMPILER) -c $(CFLAGS) $(INCLUDE) $^ -o $@
 
 $(OUTPUT_DIR)/stub.o: Src/stub.c
@@ -57,7 +60,10 @@ $(OUTPUT_DIR)/external_interrupt.o: ../EXTI/driver/external_interrupt.c
 $(OUTPUT_DIR)/interrupt.o: ../NVIC/driver/interrupt.c
 	$(COMPILER) -c $(CFLAGS) $(INCLUDE) $^ -o $@
 
-$(OUTPUT_DIR)/$(TEST_FILE).o: ../GPIO/test/$(TEST_FILE).c
+$(OUTPUT_DIR)/spi.o: ../SPI/driver/spi.c
+	$(COMPILER) -c $(CFLAGS) $(INCLUDE) $^ -o $@
+
+$(OUTPUT_DIR)/$(TEST_FILE).o: ../$(MODULE)/test/$(TEST_FILE).c
 	$(COMPILER) -c $(CFLAGS) $(INCLUDE) $^ -o $@
 
 # Load elf to target board

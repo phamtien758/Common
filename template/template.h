@@ -20,12 +20,12 @@
  */
 typedef struct
 {
-    uint8_t Data_u8;    /* Data */
+    uint8 Data_u8;    /* Data */
 }struct1;
 
 /*** EXTERN *******************************************************************/
 
-extern uint8_t State_u8;
+extern uint8 State_u8;
 
 /*** PROTOTYPE ****************************************************************/
 

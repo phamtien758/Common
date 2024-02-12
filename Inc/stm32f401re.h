@@ -1,8 +1,8 @@
-/*
- * File: stm32f401re.h
- * Author: phamtien758
- * 
- */
+/*******************************************************************************
+ * File  : stm32f401re.h       
+ * Author: phamtien758      
+ * Brief : Definition of microcontroller
+ ******************************************************************************/
 
 #ifndef STM32F401RE_H
 #define STM32F401RE_H
@@ -10,7 +10,7 @@
 #include "type.h"
 
 /*************************************************************
- *            Cortex-M4 Processor Peripheral
+ *            Cortex-M4 Processor Peripherals
  *************************************************************/
 /*
  * @brief Definition of IRQ number
@@ -75,11 +75,9 @@ typedef enum
     IRQ_NUM_SPI4               = 84
 }Irq_Number;
 
-#define MAX_PEPRI_IRQ_NUM  85U    /*!< Max number of pepripheral irqs*/
+#define MAX_PEPRI_IRQ_NUM  85U    /* Max number of Peripheral irqs */
 
-/*
- * @name Irq_Pri
- */
+/* Priority levels */
 typedef enum
 {
     IRQ_PRI_0  = 0,
@@ -101,66 +99,75 @@ typedef enum
 }Irq_Pri;
 
 /*
- * Definition of NVIC peripheral base address
+ * Definition of NVIC Peripheral
  */
 typedef struct
 {
-    _RW uint32_t ISER[8U];
-        uint32_t RESERVED0[24U];
-    _RW uint32_t ICER[8U];
-        uint32_t RESERVED1[24U];
-    _RW uint32_t ISPR[8U];
-        uint32_t RESERVED2[24U];
-    _RW uint32_t ICPR[8U];
-        uint32_t RESERVED3[24U];
-    _RW uint32_t IABR[8U];
-        uint32_t RESERVED4[56U];
-    _RW uint32_t IPR[60U];
-        uint32_t RESERVED5[643U];
-    _W  uint32_t STIR;
+    _RW uint32 ISER[8U];
+        uint32 RESERVED0[24U];
+    _RW uint32 ICER[8U];
+        uint32 RESERVED1[24U];
+    _RW uint32 ISPR[8U];
+        uint32 RESERVED2[24U];
+    _RW uint32 ICPR[8U];
+        uint32 RESERVED3[24U];
+    _RW uint32 IABR[8U];
+        uint32 RESERVED4[56U];
+    _RW uint32 IPR[60U];
+        uint32 RESERVED5[643U];
+    _W  uint32 STIR;
 }Nvic_RegDef;
 
-#define NVIC_BASE    ((uint32_t*)0xE000E100)
+#define NVIC_BASE    ((uint32*)0xE000E100)
+
 #define NVIC         ((Nvic_RegDef*)NVIC_BASE)
+
 #define NVIC_IPR_LOW_BIT_UNUSED      4U
 
+/*
+ * Macro definitions of NVIC registers
+ */
 #define NVIC_ISER_REG_WIDTH          32U
 #define NVIC_ISER_BIT_PER_IRQ        1U
-#define NVIC_ISER_FIRST_IRQ_MASK     ((uint32_t)0x1)
+#define NVIC_ISER_FIRST_IRQ_MASK     ((uint32)0x1)
 #define NVIC_ISER_IRQ_MASK(Index)    (NVIC_ISER_FIRST_IRQ_MASK<< \
                                       ((Index) * NVIC_ISER_BIT_PER_IRQ))
 
 #define NVIC_ICER_REG_WIDTH          32U
 #define NVIC_ICER_BIT_PER_IRQ        1U
-#define NVIC_ICER_FIRST_IRQ_MASK     ((uint32_t)0x1)
+#define NVIC_ICER_FIRST_IRQ_MASK     ((uint32)0x1)
 #define NVIC_ICER_IRQ_MASK(Index)    (NVIC_ICER_FIRST_IRQ_MASK<< \
                                       ((Index) * NVIC_ICER_BIT_PER_IRQ))
 
 #define NVIC_ISPR_REG_WIDTH          32U
 #define NVIC_ISPR_BIT_PER_IRQ        1U
-#define NVIC_ISPR_FIRST_IRQ_MASK     ((uint32_t)0x1)
+#define NVIC_ISPR_FIRST_IRQ_MASK     ((uint32)0x1)
 #define NVIC_ISPR_IRQ_MASK(Index)    (NVIC_ISPR_FIRST_IRQ_MASK<< \
                                       ((Index) * NVIC_ISPR_BIT_PER_IRQ))
 
 #define NVIC_ICPR_REG_WIDTH          32U
 #define NVIC_ICPR_BIT_PER_IRQ        1U
-#define NVIC_ICPR_FIRST_IRQ_MASK     ((uint32_t)0x1)
+#define NVIC_ICPR_FIRST_IRQ_MASK     ((uint32)0x1)
 #define NVIC_ICPR_IRQ_MASK(Index)    (NVIC_ICPR_FIRST_IRQ_MASK<< \
                                       ((Index) * NVIC_ICPR_BIT_PER_IRQ))
 
 #define NVIC_IABR_REG_WIDTH          32U
 #define NVIC_IABR_BIT_PER_IRQ        1U
-#define NVIC_IABR_FIRST_IRQ_MASK     ((uint32_t)0x1)
+#define NVIC_IABR_FIRST_IRQ_MASK     ((uint32)0x1)
 #define NVIC_IABR_IRQ_MASK(Index)    (NVIC_IABR_FIRST_IRQ_MASK<< \
                                       ((Index) * NVIC_IABR_BIT_PER_IRQ))
 
 #define NVIC_IPR_REG_WIDTH           32U
 #define NVIC_IPR_BIT_PER_IRQ         8U
-#define NVIC_IPR_FIRST_IRQ_MASK      ((uint32_t)0xFF)
+#define NVIC_IPR_FIRST_IRQ_MASK      ((uint32)0xFF)
 #define NVIC_IPR_IRQ_POS(Index)      (NVIC_IPR_LOW_BIT_UNUSED + \
                                       (Index) * NVIC_IPR_BIT_PER_IRQ)
 #define NVIC_IPR_IRQ_MASK(Index)     (NVIC_IPR_FIRST_IRQ_MASK << \
                                       NVIC_IPR_IRQ_POS(Index))
+
+/*************************************************************
+ *            Microcontroller Peripherals
+ *************************************************************/
 
 /*
  * Definition of GPIO peripheral base address
@@ -209,24 +216,21 @@ typedef struct
  */
 #define SYSCFG_BASE     0x40013800U
 
-/*********************************************************
- *              Peripheral register structures
- *********************************************************/
 /*
  * GPIO peripheral register definition
  */
 typedef struct
 {
-    _RW uint32_t MODER;
-    _RW uint32_t OTYPER;
-    _RW uint32_t OSPEEDR;
-    _RW uint32_t PUPDR;
-    _R  uint32_t IDR;
-    _RW uint32_t ODR;
-    _W  uint32_t BSRR;
-    _RW uint32_t LCKR;
-    _RW uint32_t AFRL;
-    _RW uint32_t AFRH;
+    _RW uint32 MODER;
+    _RW uint32 OTYPER;
+    _RW uint32 OSPEEDR;
+    _RW uint32 PUPDR;
+    _R  uint32 IDR;
+    _RW uint32 ODR;
+    _W  uint32 BSRR;
+    _RW uint32 LCKR;
+    _RW uint32 AFRL;
+    _RW uint32 AFRH;
 } Gpio_RegDef;
 
 #define GPIOA    ((Gpio_RegDef*)GPIOA_BASE)
@@ -242,7 +246,7 @@ typedef struct
                                           (pinNum))
 
 /* Mask macro of bit fields in GPIO_MODER register */
-#define MASK_OF_PIN_IN_GPIO_MODER        ((uint32_t)0x3)
+#define MASK_OF_PIN_IN_GPIO_MODER        ((uint32)0x3)
 #define GPIO_MODER_BIT_MASK(pinNum)      (MASK_OF_PIN_IN_GPIO_MODER << \
                                           GPIO_MODER_BIT_POS(pinNum))
 
@@ -252,7 +256,7 @@ typedef struct
                                           (pinNum))
 
 /* Mask macro of bit fields in GPIO_OTYPER register */
-#define MASK_OF_PIN_IN_GPIO_OTYPER       ((uint32_t)0x1)
+#define MASK_OF_PIN_IN_GPIO_OTYPER       ((uint32)0x1)
 #define GPIO_OTYPER_BIT_MASK(pinNum)     (MASK_OF_PIN_IN_GPIO_OTYPER << \
                                           GPIO_OTYPER_BIT_POS(pinNum))
 
@@ -262,7 +266,7 @@ typedef struct
                                           (pinNum))
 
 /* Mask macro of bit fields in GPIO_OSPEEDR register */
-#define MASK_OF_PIN_IN_GPIO_OSPEEDR      ((uint32_t)0x3)
+#define MASK_OF_PIN_IN_GPIO_OSPEEDR      ((uint32)0x3)
 #define GPIO_OSPEEDR_BIT_MASK(pinNum)    (MASK_OF_PIN_IN_GPIO_OSPEEDR << \
                                           GPIO_OSPEEDR_BIT_POS(pinNum))
 
@@ -272,7 +276,7 @@ typedef struct
                                           (pinNum))
 
 /* Mask macro of bit fields in GPIO_PUPDR register */
-#define MASK_OF_PIN_IN_GPIO_PUPDR        ((uint32_t)0x3)
+#define MASK_OF_PIN_IN_GPIO_PUPDR        ((uint32)0x3)
 #define GPIO_PUPDR_BIT_MASK(pinNum)      (MASK_OF_PIN_IN_GPIO_PUPDR << \
                                           GPIO_PUPDR_BIT_POS(pinNum))
 
@@ -282,7 +286,7 @@ typedef struct
                                           (pinNum))
 
 /* Mask macro of bit fields in GPIO_IDR register */
-#define MASK_OF_PIN_IN_GPIO_IDR          ((uint32_t)0x1)
+#define MASK_OF_PIN_IN_GPIO_IDR          ((uint32)0x1)
 #define GPIO_IDR_BIT_MASK(pinNum)        (MASK_OF_PIN_IN_GPIO_IDR << \
                                           GPIO_IDR_BIT_POS(pinNum))
 
@@ -292,7 +296,7 @@ typedef struct
                                           (pinNum))
 
 /* Mask macro of bit fields in GPIO_ODR register */
-#define MASK_OF_PIN_IN_GPIO_ODR          ((uint32_t)0x1)
+#define MASK_OF_PIN_IN_GPIO_ODR          ((uint32)0x1)
 #define GPIO_ODR_BIT_MASK(pinNum)        (MASK_OF_PIN_IN_GPIO_ODR << \
                                           GPIO_ODR_BIT_POS(pinNum))
 
@@ -302,7 +306,7 @@ typedef struct
                                           (pinNum))
 
 /* Mask macro of bit fields in GPIO_BSRR_BS register */
-#define MASK_OF_PIN_IN_GPIO_BSRR_BS      ((uint32_t)0x1)
+#define MASK_OF_PIN_IN_GPIO_BSRR_BS      ((uint32)0x1)
 #define GPIO_BSRR_BS_BIT_MASK(pinNum)    (MASK_OF_PIN_IN_GPIO_BSRR_BS << \
                                           GPIO_BSRR_BS_BIT_POS(pinNum))
 
@@ -314,7 +318,7 @@ typedef struct
                                           (pinNum))
 
 /* Mask macro of bit fields in GPIO_BSRR_BR register */
-#define MASK_OF_PIN_IN_GPIO_BSRR_BR      ((uint32_t)0x1)
+#define MASK_OF_PIN_IN_GPIO_BSRR_BR      ((uint32)0x1)
 #define GPIO_BSRR_BR_BIT_MASK(pinNum)    (MASK_OF_PIN_IN_GPIO_BSRR_BR << \
                                           GPIO_BSRR_BR_BIT_POS(pinNum))
 
@@ -324,7 +328,7 @@ typedef struct
                                             (pinNum))
 
 /* Mask macro of bit fields in GPIO_LCKR_LCK register */
-#define MASK_OF_PIN_IN_GPIO_LCKR_LCK     ((uint32_t)0x1)
+#define MASK_OF_PIN_IN_GPIO_LCKR_LCK     ((uint32)0x1)
 #define GPIO_LCKR_LCK_BIT_MASK(pinNum)   (MASK_OF_PIN_IN_GPIO_LCKR_LCK << \
                                           GPIO_LCKR_LCK_BIT_POS(pinNum))
 
@@ -332,7 +336,7 @@ typedef struct
 #define GPIO_LCKR_LCKK_POS               16U
 
 /* Mask macro of bit fields GPIO_LCKR_LCKK */
-#define GPIO_LCKR_LCKK_MASK              ((uint32_t)0x10000)
+#define GPIO_LCKR_LCKK_MASK              ((uint32)0x10000)
 
 /* Position macro of bit fields in GPIO_AFRL register */
 #define NUM_BIT_PER_PIN_IN_GPIO_AFRL     4U
@@ -340,7 +344,7 @@ typedef struct
                                           (pinNum))
 
 /* Mask macro of bit fields in GPIO_AFRL register */
-#define MASK_OF_PIN_IN_GPIO_AFRL         ((uint32_t)0xF)
+#define MASK_OF_PIN_IN_GPIO_AFRL         ((uint32)0xF)
 #define GPIO_AFRL_BIT_MASK(pinNum)       (MASK_OF_PIN_IN_GPIO_AFRL << \
                                           GPIO_AFRL_BIT_POS(pinNum))
 
@@ -351,7 +355,7 @@ typedef struct
                                           ((pinNum) - PIN_NUM_START_IN_AFRH))
 
 /* Mask macro of bit fields in GPIO_AFRH register */
-#define MASK_OF_PIN_IN_GPIO_AFRH         ((uint32_t)0xF)
+#define MASK_OF_PIN_IN_GPIO_AFRH         ((uint32)0xF)
 #define GPIO_AFRH_BIT_MASK(pinNum)       (MASK_OF_PIN_IN_GPIO_AFRH << \
                                           GPIO_AFRH_BIT_POS(pinNum))
 
@@ -360,35 +364,35 @@ typedef struct
  */
 typedef struct
 {
-    _RW uint32_t CR;
-    _RW uint32_t PLLCFGR;
-    _RW uint32_t CFGR;
-    _RW uint32_t CIR;
-    _RW uint32_t AHB1RSTR;
-    _RW uint32_t AHB2RSTR;
-        uint32_t Reserved1[2U];
-    _RW uint32_t APB1RSTR;
-    _RW uint32_t APB2RSTR;
-        uint32_t Reserved2[2U];
-    _RW uint32_t AHB1ENR;
-    _RW uint32_t AHB2ENR;
-        uint32_t Reserved3[2U];
-    _RW uint32_t APB1ENR;
-    _RW uint32_t APB2ENR;
-        uint32_t Reserved4[2U];
-    _RW uint32_t AHB1LPENR;
-    _RW uint32_t AHB2LPENR;
-        uint32_t Reserved5[2U];
-    _RW uint32_t APB1LPENR;
-    _RW uint32_t APB2LPENR;
-        uint32_t Reserved6[2U];
-    _RW uint32_t BDCR;
-    _RW uint32_t CSR;
-        uint32_t Reserved7[2U];
-    _RW uint32_t SSCGR;
-    _RW uint32_t PLLI2SCFGR;
-        uint32_t Reserved8;
-    _RW uint32_t DCKCFGR;
+    _RW uint32 CR;
+    _RW uint32 PLLCFGR;
+    _RW uint32 CFGR;
+    _RW uint32 CIR;
+    _RW uint32 AHB1RSTR;
+    _RW uint32 AHB2RSTR;
+        uint32 Reserved1[2U];
+    _RW uint32 APB1RSTR;
+    _RW uint32 APB2RSTR;
+        uint32 Reserved2[2U];
+    _RW uint32 AHB1ENR;
+    _RW uint32 AHB2ENR;
+        uint32 Reserved3[2U];
+    _RW uint32 APB1ENR;
+    _RW uint32 APB2ENR;
+        uint32 Reserved4[2U];
+    _RW uint32 AHB1LPENR;
+    _RW uint32 AHB2LPENR;
+        uint32 Reserved5[2U];
+    _RW uint32 APB1LPENR;
+    _RW uint32 APB2LPENR;
+        uint32 Reserved6[2U];
+    _RW uint32 BDCR;
+    _RW uint32 CSR;
+        uint32 Reserved7[2U];
+    _RW uint32 SSCGR;
+    _RW uint32 PLLI2SCFGR;
+        uint32 Reserved8;
+    _RW uint32 DCKCFGR;
 } Rcc_RegDef;
 
 #define RCC    ((Rcc_RegDef*)RCC_BASE)
@@ -432,12 +436,12 @@ typedef struct
  */
 typedef struct
 {
-    _RW uint32_t EXTI_IMR;
-    _RW uint32_t EXTI_EMR;
-    _RW uint32_t EXTI_RTSR;
-    _RW uint32_t EXTI_FTSR;
-    _RW uint32_t EXTI_SWIER;
-    _RW uint32_t EXTI_PR;
+    _RW uint32 EXTI_IMR;
+    _RW uint32 EXTI_EMR;
+    _RW uint32 EXTI_RTSR;
+    _RW uint32 EXTI_FTSR;
+    _RW uint32 EXTI_SWIER;
+    _RW uint32 EXTI_PR;
 }Exti_RegDef;
 
 #define EXTI    ((Exti_RegDef*)EXTI_BASE)
@@ -447,7 +451,7 @@ typedef struct
 #define EXTI_IMR_BIT_POS(line)         (NUM_BIT_PER_LINE_IN_EXTI_IMR * (line))
 
 /* Mask macro of bit fields in EXTI_IMR register */
-#define MASK_OF_LINE_IN_EXTI_IMR       ((uint32_t)0x1)
+#define MASK_OF_LINE_IN_EXTI_IMR       ((uint32)0x1)
 #define EXTI_IMR_BIT_MASK(line)        (MASK_OF_LINE_IN_EXTI_IMR << \
                                         EXTI_IMR_BIT_POS(line))
 
@@ -456,7 +460,7 @@ typedef struct
 #define EXTI_EMR_BIT_POS(line)         (NUM_BIT_PER_LINE_IN_EXTI_EMR * (line))
 
 /* Mask macro of bit fields in EXTI_EMR register */
-#define MASK_OF_LINE_IN_EXTI_EMR       ((uint32_t)0x1)
+#define MASK_OF_LINE_IN_EXTI_EMR       ((uint32)0x1)
 #define EXTI_EMR_BIT_MASK(line)        (MASK_OF_LINE_IN_EXTI_EMR << \
                                         EXTI_EMR_BIT_POS(line))
 
@@ -465,7 +469,7 @@ typedef struct
 #define EXTI_RTSR_BIT_POS(line)        (NUM_BIT_PER_LINE_IN_EXTI_RTSR * (line))
 
 /* Mask macro of bit fields in EXTI_RTSR register */
-#define MASK_OF_LINE_IN_EXTI_RTSR      ((uint32_t)0x1)
+#define MASK_OF_LINE_IN_EXTI_RTSR      ((uint32)0x1)
 #define EXTI_RTSR_BIT_MASK(line)       (MASK_OF_LINE_IN_EXTI_RTSR << \
                                         EXTI_RTSR_BIT_POS(line))
 
@@ -474,7 +478,7 @@ typedef struct
 #define EXTI_FTSR_BIT_POS(line)        (NUM_BIT_PER_LINE_IN_EXTI_FTSR *(line))
 
 /* Mask macro of bit fields in EXTI_FTSR register */
-#define MASK_OF_LINE_IN_EXTI_FTSR      ((uint32_t)0x1)
+#define MASK_OF_LINE_IN_EXTI_FTSR      ((uint32)0x1)
 #define EXTI_FTSR_BIT_MASK(line)       (MASK_OF_LINE_IN_EXTI_FTSR << \
                                         EXTI_FTSR_BIT_POS(line))
 
@@ -483,7 +487,7 @@ typedef struct
 #define EXTI_SWIER_BIT_POS(line)       (NUM_BIT_PER_LINE_IN_EXTI_SWIER * (line))
 
 /* Mask macro of bit fields in EXTI_SWIER register */
-#define MASK_OF_LINE_IN_EXTI_SWIER     ((uint32_t)0x1)
+#define MASK_OF_LINE_IN_EXTI_SWIER     ((uint32)0x1)
 #define EXTI_SWIER_BIT_MASK(line)      (MASK_OF_LINE_IN_EXTI_SWIER << \
                                         EXTI_SWIER_BIT_POS(line))
 
@@ -492,7 +496,7 @@ typedef struct
 #define EXTI_PR_BIT_POS(line)          (NUM_BIT_PER_LINE_IN_EXTI_PR * (line))
 
 /* Mask macro of bit fields in EXTI_PR register */
-#define MASK_OF_LINE_IN_EXTI_PR        ((uint32_t)0x1)
+#define MASK_OF_LINE_IN_EXTI_PR        ((uint32)0x1)
 #define EXTI_PR_BIT_MASK(line)         (MASK_OF_LINE_IN_EXTI_PR << \
                                         EXTI_PR_BIT_POS(line))
 
@@ -501,26 +505,157 @@ typedef struct
  */
 typedef struct
 {
-    _RW uint32_t MEMRMP;
-    _RW uint32_t PMC;
-    _RW uint32_t EXTICR[4U];
-    _RW uint32_t Reserved[2U];
-    _RW uint32_t CMPCR;
+    _RW uint32 MEMRMP;
+    _RW uint32 PMC;
+    _RW uint32 EXTICR[4U];
+    _RW uint32 Reserved[2U];
+    _RW uint32 CMPCR;
 }Syscfg_RegDef;
 
 #define SYSCFG    ((Syscfg_RegDef*)SYSCFG_BASE)
 
 #define SYSCFG_MEMRMP_MEMMODE_POS    0U
-#define SYSCFG_MEMRMP_MEMMODE_MASK   ((uint32_t)0x3)
+#define SYSCFG_MEMRMP_MEMMODE_MASK   ((uint32)0x3)
 
 #define SYSCFG_PMC_ADC1DC2_POS     0U
-#define SYSCFG_PMC_ADC1DC2_MASK    ((uint32_t)0x10000)
+#define SYSCFG_PMC_ADC1DC2_MASK    ((uint32)0x10000)
 
 #define SYSCFG_EXTICR_NUM_EXTI       4U
 #define SYSCFG_EXTICR_FIELD_WIDTH    4U
-#define SYSCFG_EXTICR_FIRST_EXTI_MASK    ((uint32_t)0xF)
+#define SYSCFG_EXTICR_FIRST_EXTI_MASK    ((uint32)0xF)
 #define SYSCFG_EXTICR_EXTI_POS(Index)    ((Index)*SYSCFG_EXTICR_FIELD_WIDTH)
 #define SYSCFG_EXTICR_EXTI_MASK(Index)   (SYSCFG_EXTICR_FIRST_EXTI_MASK << \
                                           SYSCFG_EXTICR_EXTI_POS(Index))
+
+/*
+ * SPI peripheral register structure
+ */
+typedef struct
+{
+    _RW uint32 CR1;
+    _RW uint32 CR2;
+    _RW uint32 SR;
+    _RW uint32 DR;
+    _RW uint32 CRCPR;
+    _R  uint32 RXCRCR;
+    _R  uint32 TXCRCR;
+    _RW uint32 I2SCFGR;
+    _RW uint32 I2SPR;
+}Spi_RegDef;
+
+#define SPI1    ((Spi_RegDef*)SPI1_BASE)
+#define SPI2    ((Spi_RegDef*)SPI2_BASE)
+#define SPI3    ((Spi_RegDef*)SPI3_BASE)
+#define SPI4    ((Spi_RegDef*)SPI4_BASE)
+
+/* Definition of bit positions */
+#define SPI_CR1_BIDIMODE_POS    15U
+#define SPI_CR1_BIDIOE_POS      14U
+#define SPI_CR1_CRCEN_POS       13U
+#define SPI_CR1_CRCNEXT_POS     12U
+#define SPI_CR1_DFF_POS         11U
+#define SPI_CR1_RXONLY_POS      10U
+#define SPI_CR1_SSM_POS         9U
+#define SPI_CR1_SSI_POS         8U
+#define SPI_CR1_LSBFIRST_POS    7U
+#define SPI_CR1_SPE_POS         6U
+#define SPI_CR1_BR_POS          3U
+#define SPI_CR1_MSTR_POS        2U
+#define SPI_CR1_CPOL_POS        1U
+#define SPI_CR1_CPHA_POS        0U
+
+#define SPI_CR2_TXEIE_POS       7U
+#define SPI_CR2_RXNEIE_POS      6U
+#define SPI_CR2_ERRIE_POS       5U
+#define SPI_CR2_FRF_POS         4U
+#define SPI_CR2_SSOE_POS        2U
+#define SPI_CR2_TXDMAEN_POS     1U
+#define SPI_CR2_RXDMAEN_POS     0U
+
+#define SPI_SR_FRE_POS          8U
+#define SPI_SR_BSY_POS          7U
+#define SPI_SR_OVR_POS          6U
+#define SPI_SR_MODF_POS         5U
+#define SPI_SR_CRCERR_POS       4U
+#define SPI_SR_UDR_POS          3U
+#define SPI_SR_CHSIDE_POS       2U
+#define SPI_SR_TXE_POS          1U
+#define SPI_SR_RXNE_POS         0U
+
+#define SPI_DR_DR_POS           0U
+
+#define SPI_CRCPR_CRCPOLY_POS   0U
+
+#define SPI_RXCRCR_RXCRC_POS    0U
+
+#define SPI_TXCRCR_TXCRC_POS    0U
+
+#define SPI_I2SCFGR_I2SMOD_POS  11U
+#define SPI_I2SCFGR_I2SE_POS    10U
+#define SPI_I2SCFGR_I2SCFG_POS  8U
+#define SPI_I2SCFGR_PCMSYNC_POS 7U
+#define SPI_I2SCFGR_I2SSTD_POS  4U
+#define SPI_I2SCFGR_CKPOL_POS   3U
+#define SPI_I2SCFGR_DATLEN_POS  1U
+#define SPI_I2SCFGR_CHLEN_POS   0U
+
+#define SPI_I2SPR_MCKOE_POS     9U
+#define SPI_I2SPR_ODD_POS       8U
+#define SPI_I2SPR_I2SDIV_POS    0U
+
+/* Definition of bit masks */
+#define SPI_CR1_BIDIMODE_MASK    ((uint32)0x8000)
+#define SPI_CR1_BIDIOE_MASK      ((uint32)0x4000)
+#define SPI_CR1_CRCEN_MASK       ((uint32)0x2000)
+#define SPI_CR1_CRCNEXT_MASK     ((uint32)0x1000)
+#define SPI_CR1_DFF_MASK         ((uint32)0x0800)
+#define SPI_CR1_RXONLY_MASK      ((uint32)0x0400)
+#define SPI_CR1_SSM_MASK         ((uint32)0x0200)
+#define SPI_CR1_SSI_MASK         ((uint32)0x0100)
+#define SPI_CR1_LSBFIRST_MASK    ((uint32)0x0080)
+#define SPI_CR1_SPE_MASK         ((uint32)0x0040)
+#define SPI_CR1_BR_MASK          ((uint32)0x0038)
+#define SPI_CR1_MSTR_MASK        ((uint32)0x0004)
+#define SPI_CR1_CPOL_MASK        ((uint32)0x0002)
+#define SPI_CR1_CPHA_MASK        ((uint32)0x0001)
+
+#define SPI_CR2_TXEIE_MASK       ((uint32)0x0080)
+#define SPI_CR2_RXNEIE_MASK      ((uint32)0x0040)
+#define SPI_CR2_ERRIE_MASK       ((uint32)0x0020)
+#define SPI_CR2_FRF_MASK         ((uint32)0x0010)
+#define SPI_CR2_SSOE_MASK        ((uint32)0x0040)
+#define SPI_CR2_TXDMAEN_MASK     ((uint32)0x0020)
+#define SPI_CR2_RXDMAEN_MASK     ((uint32)0x0010)
+
+#define SPI_SR_FRE_MASK          ((uint32)0x0100)
+#define SPI_SR_BSY_MASK          ((uint32)0x0080)
+#define SPI_SR_OVR_MASK          ((uint32)0x0040)
+#define SPI_SR_MODF_MASK         ((uint32)0x0020)
+#define SPI_SR_CRCERR_MASK       ((uint32)0x0010)
+#define SPI_SR_UDR_MASK          ((uint32)0x0008)
+#define SPI_SR_CHSIDE_MASK       ((uint32)0x0004)
+#define SPI_SR_TXE_MASK          ((uint32)0x0002)
+#define SPI_SR_RXNE_MASK         ((uint32)0x0001)
+
+#define SPI_DR_DR_MASK           ((uint32)0xFFFF)
+
+#define SPI_CRCPR_CRCPOLY_MASK   ((uint32)0xFFFF)
+
+#define SPI_RXCRCR_RXCRC_MASK    ((uint32)0xFFFF)
+
+#define SPI_TXCRCR_TXCRC_MASK    ((uint32)0xFFFF)
+
+#define SPI_I2SCFGR_I2SMOD_MASK  ((uint32)0x0800)
+#define SPI_I2SCFGR_I2SE_MASK    ((uint32)0x0400)
+#define SPI_I2SCFGR_I2SCFG_MASK  ((uint32)0x0300)
+#define SPI_I2SCFGR_PCMSYNC_MASK ((uint32)0x0080)
+#define SPI_I2SCFGR_I2SSTD_MASK  ((uint32)0x0030)
+#define SPI_I2SCFGR_CKPOL_MASK   ((uint32)0x0008)
+#define SPI_I2SCFGR_DATLEN_MASK  ((uint32)0x0006)
+#define SPI_I2SCFGR_CHLEN_MASK   ((uint32)0x0001)
+
+#define SPI_I2SPR_MCKOE_MASK     ((uint32)0x0200)
+#define SPI_I2SPR_ODD_MASK       ((uint32)0x0100)
+#define SPI_I2SPR_I2SDIV_MASK    ((uint32)0x00FF)
 
 #endif /* STM32F401RE_H */
