@@ -1,6 +1,6 @@
 COMPILER := arm-none-eabi-gcc
 CPU := cortex-m4
-CFLAGS := -mthumb -Wall -O0 -mcpu=$(CPU)
+CFLAGS := -mthumb -Wall -O0 -v -mcpu=$(CPU)
 LINKER_SCRIPT_FILE = ./system/STM32F401RETX_FLASH.ld
 INCLUDE1 := ./Inc
 INCLUDE2 := ../GPIO/driver
